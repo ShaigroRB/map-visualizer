@@ -1,30 +1,38 @@
-
 function readSingleFile(e) {
     var file = e.target.files[0];
     if (!file) {
-      return;
+        return;
     }
     var reader = new FileReader();
-    reader.onload = function(e) {
-      var contents = e.target.result;
-      displayContents(contents);
-      drawChart(contents.split('\n')[3])
+    reader.onload = function (e) {
+        var contents = e.target.result;
+        displayContents(contents);
+        drawChart(contents.split('\n')[3])
     };
     reader.readAsText(file);
 }
-  
+
 function displayContents(contents) {
-    var element = document.getElementById('file-content');
-    element.textContent = contents;
+    const lines = contents.split('\n');
+    let element = document.getElementById('pre-file-content');
+    let text = "";
+    for (const line in lines) {
+        if (line >= 3) {
+            text += JSON.stringify(JSON.parse(lines[line]), null, 2); + '\n';
+        } else {
+            text += lines[line] + '\n';
+        }
+    }
+    element.textContent = text;
 }
-  
+
 document.getElementById('file-input')
     .addEventListener('change', readSingleFile, false);
 
 function drawChart(data) {
     const width = 1000
     const height = 400
-    
+
     var objlist = []
     const obj = JSON.parse(data)
     for (const item in obj) {
@@ -52,11 +60,11 @@ function drawChart(data) {
     var yScale = d3.scaleLinear()
         .domain([min_y, max_y])
         .range([0, height])
-    
-    var svg = d3.select("body").append("svg")
+
+    var svg = d3.select("#map-viewer").append("svg")
         .attr("width", width)
         .attr("height", height)
-    
+
     svg.selectAll("rect")
         .data(objlist)
         .enter()
