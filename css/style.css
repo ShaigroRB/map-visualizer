@@ -1,0 +1,17 @@
+.flex-container {
+    display: flex;
+    align-content: space-between;
+}
+
+.scrollable-content {
+    height: 630px;
+    overflow-y: scroll;
+}
+
+#file-details {
+    width: 600px;
+}
+
+#map-viewer {
+    width: 100%;
+}
