@@ -47,13 +47,15 @@ function drawChart(data, width, height) {
     }
 
     const max_x = d3.max(objlist, d => {
-        return +d['X']
+        // right most blocks not taken into account otherwise
+        return +d['X'] + BM_DEFAULT_GRID_SIZE
     })
     const min_x = d3.min(objlist, d => {
         return +d['X']
     })
     const max_y = d3.max(objlist, d => {
-        return +d['Y']
+        // down most blocks not taken into account otherwise
+        return +d['Y'] + BM_DEFAULT_GRID_SIZE
     })
     const min_y = d3.min(objlist, d => {
         return +d['Y']
