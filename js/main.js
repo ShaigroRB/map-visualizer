@@ -1,16 +1,31 @@
 const BM_DEFAULT_GRID_SIZE = 128;
+let detailsMapContainer = document.getElementsByClassName("row-container")[0];
+let currFileContents;
+
+function redrawChart(height) {
+    clearChart();
+    const widthViewer = document.getElementById("map-viewer").clientWidth;
+    drawChart(currFileContents[3], widthViewer, height);
+}
+
+function changeContainerFlexDirection() {
+    const isRowContainer = detailsMapContainer.className === "row-container";
+    detailsMapContainer.className = isRowContainer ? "column-container" : "row-container";
+    document.getElementById("btn-details").innerText = isRowContainer ? "Reduced width" : "Full width";
+    redrawChart(630);
+}
 
 function readSingleFile(e) {
     const file = e.target.files[0];
     if (!file) {
         return;
     }
+
     const reader = new FileReader();
     reader.onload = function (e) {
-        const contents = e.target.result.split('\n');
-        displayContents(contents);
-        clearChart();
-        drawChart(contents[3], 1000, 400);
+        currFileContents = e.target.result.split('\n');
+        displayContents(currFileContents);
+        redrawChart(630);
     };
     reader.readAsText(file);
 }

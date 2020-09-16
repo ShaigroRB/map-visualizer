@@ -13,11 +13,13 @@
     </p>
 
   </div>
-  <div class="flex-container">
+  <div class="row-container">
     <div id="file-details">
       <input type="file" id="file-input" />
       <details>
-        <summary>Contents of the file</summary>
+        <summary>Contents of the file
+          <button id="btn-details" onclick="changeContainerFlexDirection()">Full width</button>
+        </summary>
         <pre id="pre-file-content" class="scrollable-content"></pre>
       </details>
     </div>
