@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>D3: Selections</title>
-  </head>
-  <body>
-    <div class="about-me">
+
+<head>
+  <title>D3: Selections</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+  <div class="about-me">
     <p>
-        Boring Man Map Viewer
+      Boring Man Map Viewer
     </p>
-      
+
+  </div>
+  <div class="row-container">
+    <div id="file-details">
+      <input type="file" id="file-input" />
+      <details>
+        <summary>Contents of the file
+          <button id="btn-details" onclick="changeContainerFlexDirection()">Full width</button>
+        </summary>
+        <pre id="pre-file-content" class="scrollable-content"></pre>
+      </details>
     </div>
-    <input type="file" id="file-input" />
-    <h3>Contents of the file:</h3>
-    <pre id="file-content"></pre>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="main.js"></script>
-  </body>
+    <div id="map-viewer">
+
+    </div>
+  </div>
+
+  <script src="js/d3.v5.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
 </html>

@@ -1,0 +1,37 @@
+.row-container {
+    display: flex;
+    align-content: space-between;
+    flex-direction: row;
+}
+
+.column-container {
+    display: flex;
+    align-content: space-between;
+    flex-direction: column;
+}
+
+.row-container .scrollable-content {
+    height: 630px;
+    width: 300px;
+}
+
+.row-container #file-details {
+    flex: 0 0 300px;
+}
+
+.column-container .scrollable-content {
+    height: 170px;
+    width: 100%;
+}
+
+.column-container #file-details {
+    flex: 0 0 auto;
+}
+
+.scrollable-content {
+    overflow-y: scroll;
+}
+
+#map-viewer {
+    width: 100%;
+}
