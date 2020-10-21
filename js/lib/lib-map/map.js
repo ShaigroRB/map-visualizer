@@ -24,28 +24,10 @@ class MapObject {
         this.LogicID = parseInt(logicId);
         const trimmedName = name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
         this.ObjID = `${id}+${trimmedName}+${objIsTile}+${objIndexId}+${depth}`;
-    }
 
-    /**
-     * Create a MapObject from an object of a BM map
-     * @param {} mapObj 
-     */
-    static viewerMapObjectFromObj(mapObj) {
-        let x;
-        let y;
-        if (mapObj.ObjIndexID == 6) {
-            x = mapObj.X1;
-            y = mapObj.Y1;
-        } else {
-            x = mapObj.X;
-            y = mapObj.Y;
-        }
-        return new MapObject(
-            mapObj.ID, mapObj.Name,
-            x, y,
-            mapObj.ObjIsTile, mapObj.ObjIndexID,
-            mapObj.Depth, mapObj.LogicID,
-        );
+        this.fillColor = "steelblue";
+        this.widthCoeff = 1;
+        this.heightCoeff = 1;
     }
 
     /**
@@ -89,10 +71,94 @@ class MapObject {
     drawD3(svg, width, height, xScale, yScale) {
         svg.append("rect")
             .attr("id", this.ObjID)
-            .style("fill", "steelblue")
+            .style("fill", this.fillColor)
             .attr("x", xScale(this.X))
-            .attr("width", width)
+            .attr("width", width * this.widthCoeff)
             .attr("y", yScale(this.Y))
-            .attr("height", height);
+            .attr("height", height * this.heightCoeff);
     }
+}
+
+/**
+ * Get a corresponding MapObject from a given object
+ * @param {*} mapObj The object to convert into a MapObject
+ * @param {number} gridSize Size of the grid
+ */
+function getCorrespondingMapObject(mapObj, gridSize) {
+    let x;
+    let y;
+    if (mapObj.ObjIndexID == 6) {
+        x = mapObj.X1;
+        y = mapObj.Y1;
+    }
+    else {
+        x = mapObj.X;
+        y = mapObj.Y;
+    }
+
+    let result = new MapObject(
+        mapObj.ID, mapObj.Name,
+        x, y,
+        mapObj.ObjIsTile, mapObj.ObjIndexID,
+        mapObj.Depth, mapObj.LogicID
+    );
+
+    if (mapObj.ObjIsTile === '0') {
+        const objIndexID = parseInt(mapObj.ObjIndexID);
+        switch (objIndexID) {
+            case Assets.BLOCK_1X1:
+                result = new BlockObject(
+                    mapObj.ID, mapObj.Name,
+                    x, y,
+                    mapObj.ObjIsTile, mapObj.ObjIndexID,
+                    mapObj.Depth, mapObj.LogicID
+                );
+                break;
+            case Assets.BLOCK_2X2:
+                result = new Block2x2Object(
+                    mapObj.ID, mapObj.Name,
+                    x, y,
+                    mapObj.ObjIsTile, mapObj.ObjIndexID,
+                    mapObj.Depth, mapObj.LogicID
+                );
+                break;
+            case Assets.BLOCK_1X4:
+                result = new Block1x4Object(
+                    mapObj.ID, mapObj.Name,
+                    x, y,
+                    mapObj.ObjIsTile, mapObj.ObjIndexID,
+                    mapObj.Depth, mapObj.LogicID
+                );
+                break;
+            case Assets.BLOCK_4X1:
+                result = new Block4x1Object(
+                    mapObj.ID, mapObj.Name,
+                    x, y,
+                    mapObj.ObjIsTile, mapObj.ObjIndexID,
+                    mapObj.Depth, mapObj.LogicID
+                );
+                break;
+            case Assets.WALL_TOOL:
+                result = new WallObject(
+                    mapObj.ID, mapObj.Name,
+                    x, y,
+                    mapObj.ObjIsTile, mapObj.ObjIndexID,
+                    mapObj.Depth, mapObj.LogicID,
+                    mapObj.ObjWallWidth, mapObj.ObjWallHeight,
+                    gridSize
+                );
+                break;
+            default:
+                result = new AssetObject(
+                    mapObj.ID, mapObj.Name,
+                    x, y,
+                    mapObj.ObjIsTile, mapObj.ObjIndexID,
+                    mapObj.Depth, mapObj.LogicID
+                );
+        }
+    }
+    else {
+        // TODO: tiles
+    }
+    return result;
 }

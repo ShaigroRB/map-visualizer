@@ -57,7 +57,7 @@ function drawChart(data, width, height) {
     const map = JSON.parse(data)
     for (const item in map) {
         if (item.startsWith('OBJ') && map[item]['ObjIsTile'] === '0') {
-            mapObjList.push(MapObject.viewerMapObjectFromObj(map[item]))
+            mapObjList.push(getCorrespondingMapObject(map[item], BM_DEFAULT_GRID_SIZE));
         }
     }
 
