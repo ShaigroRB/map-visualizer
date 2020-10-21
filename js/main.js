@@ -53,31 +53,27 @@ function clearChart() {
 }
 
 function drawChart(data, width, height) {
-    var objlist = []
-    const obj = JSON.parse(data)
-    for (const item in obj) {
-        if (item.startsWith('OBJ') && obj[item]['ObjIsTile'] === '1') {
-            objlist.push(obj[item])
+    let mapObjList = [];
+    const map = JSON.parse(data)
+    for (const item in map) {
+        if (item.startsWith('OBJ') && map[item]['ObjIsTile'] === '0') {
+            mapObjList.push(MapObject.viewerMapObjectFromObj(map[item]))
         }
     }
 
-    const max_x = d3.max(objlist, d => {
-        // right most blocks not taken into account otherwise
-        return +d['X'] + BM_DEFAULT_GRID_SIZE
-    })
-    const min_x = d3.min(objlist, d => {
-        return +d['X']
-    })
-    const max_y = d3.max(objlist, d => {
-        // down most blocks not taken into account otherwise
-        return +d['Y'] + BM_DEFAULT_GRID_SIZE
-    })
-    const min_y = d3.min(objlist, d => {
-        return +d['Y']
-    })
+    // descending because first drawn objects are hidden by later drawn objects
+    MapObject.sortByDepth(mapObjList, false);
 
-    const boxWidth = width * BM_DEFAULT_GRID_SIZE / (max_x - min_x)
-    const boxHeight = height * BM_DEFAULT_GRID_SIZE / (max_y - min_y)
+    const minMaxCoords = getMinMaxCoordinates(mapObjList);
+    minMaxCoords.correctMaxXY(BM_DEFAULT_GRID_SIZE);
+
+    const max_x = minMaxCoords.maxX;
+    const max_y = minMaxCoords.maxY;
+    const min_x = minMaxCoords.minX;
+    const min_y = minMaxCoords.minY;
+
+    const boxWidth = (width * BM_DEFAULT_GRID_SIZE) / (max_x - min_x)
+    const boxHeight = (height * BM_DEFAULT_GRID_SIZE) / (max_y - min_y)
 
     var xScale = d3.scaleLinear()
         .domain([min_x, max_x])
@@ -90,13 +86,24 @@ function drawChart(data, width, height) {
         .attr("width", width)
         .attr("height", height)
 
-    svg.selectAll("rect")
-        .data(objlist)
-        .enter()
-        .append("rect")
-        .style("fill", "steelblue")
-        .attr("x", item => xScale(item['X']))
-        .attr("width", boxWidth)
-        .attr("y", item => yScale(item['Y']))
-        .attr("height", boxHeight)
+    mapObjList.forEach(item => item.drawD3(svg, boxWidth, boxHeight, xScale, yScale));
+}
+
+/**
+ * Get the min and max values for X and Y
+ * @param {MapObject[]} list
+ * @returns {MinMaxCoordinates} a MinMaxCoordinates object
+ */
+function getMinMaxCoordinates(list) {
+    let currentElm = list[0];
+
+    const result = new MinMaxCoordinates(currentElm.X, currentElm.X, currentElm.Y, currentElm.Y);
+
+    list.forEach(elm => {
+        result.compareAndSetMinX(elm.X);
+        result.compareAndSetMaxX(elm.X);
+        result.compareAndSetMinY(elm.Y);
+        result.compareAndSetMaxY(elm.Y);
+    });
+    return result;
 }
