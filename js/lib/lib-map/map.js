@@ -85,75 +85,81 @@ class MapObject {
  * @param {number} gridSize Size of the grid
  */
 function getCorrespondingMapObject(mapObj, gridSize) {
+    const {
+        ID, Name, ObjIsTile,
+        X, Y, X1, Y1,
+        ObjIndexID, Depth, LogicID,
+        ObjWallWidth, ObjWallHeight
+    } = mapObj;
     let x;
     let y;
-    if (mapObj.ObjIndexID == 6) {
-        x = mapObj.X1;
-        y = mapObj.Y1;
+    if (ObjIndexID == Assets.POLYGON_TOOL) {
+        x = X1;
+        y = Y1;
     }
     else {
-        x = mapObj.X;
-        y = mapObj.Y;
+        x = X;
+        y = Y;
     }
 
     let result = new MapObject(
-        mapObj.ID, mapObj.Name,
+        ID, Name,
         x, y,
-        mapObj.ObjIsTile, mapObj.ObjIndexID,
-        mapObj.Depth, mapObj.LogicID
+        ObjIsTile, ObjIndexID,
+        Depth, LogicID
     );
 
-    if (mapObj.ObjIsTile === '0') {
-        const objIndexID = parseInt(mapObj.ObjIndexID);
+    if (ObjIsTile === '0') {
+        const objIndexID = parseInt(ObjIndexID);
         switch (objIndexID) {
             case Assets.BLOCK_1X1:
                 result = new BlockObject(
-                    mapObj.ID, mapObj.Name,
+                    ID, Name,
                     x, y,
-                    mapObj.ObjIsTile, mapObj.ObjIndexID,
-                    mapObj.Depth, mapObj.LogicID
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
                 );
                 break;
             case Assets.BLOCK_2X2:
                 result = new Block2x2Object(
-                    mapObj.ID, mapObj.Name,
+                    ID, Name,
                     x, y,
-                    mapObj.ObjIsTile, mapObj.ObjIndexID,
-                    mapObj.Depth, mapObj.LogicID
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
                 );
                 break;
             case Assets.BLOCK_1X4:
                 result = new Block1x4Object(
-                    mapObj.ID, mapObj.Name,
+                    ID, Name,
                     x, y,
-                    mapObj.ObjIsTile, mapObj.ObjIndexID,
-                    mapObj.Depth, mapObj.LogicID
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
                 );
                 break;
             case Assets.BLOCK_4X1:
                 result = new Block4x1Object(
-                    mapObj.ID, mapObj.Name,
+                    ID, Name,
                     x, y,
-                    mapObj.ObjIsTile, mapObj.ObjIndexID,
-                    mapObj.Depth, mapObj.LogicID
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
                 );
                 break;
             case Assets.WALL_TOOL:
                 result = new WallObject(
-                    mapObj.ID, mapObj.Name,
+                    ID, Name,
                     x, y,
-                    mapObj.ObjIsTile, mapObj.ObjIndexID,
-                    mapObj.Depth, mapObj.LogicID,
-                    mapObj.ObjWallWidth, mapObj.ObjWallHeight,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID,
+                    ObjWallWidth, ObjWallHeight,
                     gridSize
                 );
                 break;
             default:
                 result = new AssetObject(
-                    mapObj.ID, mapObj.Name,
+                    ID, Name,
                     x, y,
-                    mapObj.ObjIsTile, mapObj.ObjIndexID,
-                    mapObj.Depth, mapObj.LogicID
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
                 );
         }
     }
