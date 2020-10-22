@@ -52,10 +52,10 @@ class WaterObject extends BlockObject {
 class EmptySeaObject extends BlockObject {
     constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
         super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
-        this.X += 3;
-        this.Y += 3;
-        this.widthCoeff = 0.97;
-        this.heightCoeff = 0.95;
+        this.X += 2;
+        this.Y += 2;
+        this.widthCoeff = 0.94;
+        this.heightCoeff = 0.94;
         this.fillColor = "none";
         this.strokeColor = "#FF00FF";
         this.strokeWidth = "2px";
@@ -71,5 +71,13 @@ class EmptySeaObject extends BlockObject {
             .attr("width", width * this.widthCoeff)
             .attr("y", yScale(this.Y))
             .attr("height", height * this.heightCoeff);
+    }
+}
+
+class WaypointBlockObject extends EmptySeaObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.fillColor = "#F16EAA";
+        this.strokeColor = "#EE1C24";
     }
 }
