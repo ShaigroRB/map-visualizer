@@ -91,6 +91,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
         ObjIndexID, Depth, LogicID,
         ObjWallWidth, ObjWallHeight
     } = mapObj;
+
     let x;
     let y;
     if (ObjIndexID == Assets.POLYGON_TOOL) {

@@ -30,7 +30,7 @@ class Block1x4Object extends BlockObject {
 class WallObject extends BlockObject {
     constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId, objWallWidth, objWallHeight, gridSize) {
         super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
-        this.widthCoeff = Math.floor(parseInt(objWallWidth) / gridSize);
-        this.heightCoeff = Math.floor(parseInt(objWallHeight) / gridSize);
+        this.widthCoeff = parseInt(objWallWidth) / gridSize;
+        this.heightCoeff = parseInt(objWallHeight) / gridSize;
     }
 }
