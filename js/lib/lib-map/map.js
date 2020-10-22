@@ -155,6 +155,30 @@ function getCorrespondingMapObject(mapObj, gridSize) {
                     gridSize
                 );
                 break;
+            case Assets.LAVA:
+                result = new LavaObject(
+                    ID, Name,
+                    x, y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.WATER:
+                result = new WaterObject(
+                    ID, Name,
+                    x, y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.EMPTY_SEA:
+                result = new EmptySeaObject(
+                    ID, Name,
+                    x, y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
             default:
                 result = new AssetObject(
                     ID, Name,

@@ -95,6 +95,6 @@ const Assets = {
 class AssetObject extends MapObject {
     constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
         super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
-        this.fillColor = "#f08e3e";
+        this.fillColor = "#F08E3E";
     }
 }

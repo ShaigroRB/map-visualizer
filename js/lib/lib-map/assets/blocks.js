@@ -34,3 +34,42 @@ class WallObject extends BlockObject {
         this.heightCoeff = parseInt(objWallHeight) / gridSize;
     }
 }
+
+class LavaObject extends BlockObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.fillColor = "#EE5A1C";
+    }
+}
+
+class WaterObject extends BlockObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.fillColor = "#24859F";
+    }
+}
+
+class EmptySeaObject extends BlockObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.X += 3;
+        this.Y += 3;
+        this.widthCoeff = 0.97;
+        this.heightCoeff = 0.95;
+        this.fillColor = "none";
+        this.strokeColor = "#FF00FF";
+        this.strokeWidth = "2px";
+    }
+
+    drawD3(svg, width, height, xScale, yScale) {
+        svg.append("rect")
+            .attr("id", this.ObjID)
+            .style("fill", this.fillColor)
+            .style("stroke", this.strokeColor)
+            .style("stroke-width", this.strokeWidth)
+            .attr("x", xScale(this.X))
+            .attr("width", width * this.widthCoeff)
+            .attr("y", yScale(this.Y))
+            .attr("height", height * this.heightCoeff);
+    }
+}
