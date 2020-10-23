@@ -187,6 +187,14 @@ function getCorrespondingMapObject(mapObj, gridSize) {
                     Depth, LogicID
                 );
                 break;
+            case Assets.TERRAIN:
+                result = new TerrainObject(
+                    ID, Name,
+                    x, y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
             default:
                 result = new AssetObject(
                     ID, Name,

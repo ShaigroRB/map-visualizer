@@ -81,3 +81,12 @@ class WaypointBlockObject extends EmptySeaObject {
         this.strokeColor = "#EE1C24";
     }
 }
+
+class TerrainObject extends BlockObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.widthCoeff = 4;
+        this.heightCoeff = 2;
+        this.fillColor = "#431803";
+    }
+}
