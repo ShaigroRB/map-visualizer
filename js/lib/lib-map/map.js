@@ -24,28 +24,10 @@ class MapObject {
         this.LogicID = parseInt(logicId);
         const trimmedName = name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
         this.ObjID = `${id}+${trimmedName}+${objIsTile}+${objIndexId}+${depth}`;
-    }
 
-    /**
-     * Create a MapObject from an object of a BM map
-     * @param {} mapObj 
-     */
-    static viewerMapObjectFromObj(mapObj) {
-        let x;
-        let y;
-        if (mapObj.ObjIndexID == 6) {
-            x = mapObj.X1;
-            y = mapObj.Y1;
-        } else {
-            x = mapObj.X;
-            y = mapObj.Y;
-        }
-        return new MapObject(
-            mapObj.ID, mapObj.Name,
-            x, y,
-            mapObj.ObjIsTile, mapObj.ObjIndexID,
-            mapObj.Depth, mapObj.LogicID,
-        );
+        this.fillColor = "steelblue";
+        this.widthCoeff = 1;
+        this.heightCoeff = 1;
     }
 
     /**
@@ -89,10 +71,205 @@ class MapObject {
     drawD3(svg, width, height, xScale, yScale) {
         svg.append("rect")
             .attr("id", this.ObjID)
-            .style("fill", "steelblue")
+            .style("fill", this.fillColor)
             .attr("x", xScale(this.X))
-            .attr("width", width)
+            .attr("width", width * this.widthCoeff)
             .attr("y", yScale(this.Y))
-            .attr("height", height);
+            .attr("height", height * this.heightCoeff);
     }
+}
+
+/**
+ * Get a corresponding MapObject from a given object
+ * @param {*} mapObj The object to convert into a MapObject
+ * @param {number} gridSize Size of the grid
+ */
+function getCorrespondingMapObject(mapObj, gridSize) {
+    const {
+        ID, Name, ObjIsTile,
+        X, Y, X1, Y1,
+        X2, Y2, X3, Y3,
+        ObjIndexID, Depth, LogicID,
+        ObjWallWidth, ObjWallHeight
+    } = mapObj;
+
+    let result = new MapObject(
+        ID, Name,
+        X, Y,
+        ObjIsTile, ObjIndexID,
+        Depth, LogicID
+    );
+
+    if (ObjIsTile === '0') {
+        const objIndexID = parseInt(ObjIndexID);
+        switch (objIndexID) {
+            case Assets.BLOCK_1X1:
+                result = new BlockObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.BLOCK_2X2:
+                result = new Block2x2Object(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.BLOCK_1X4:
+                result = new Block1x4Object(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.BLOCK_4X1:
+                result = new Block4x1Object(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.WALL_TOOL:
+                result = new WallObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID,
+                    ObjWallWidth, ObjWallHeight,
+                    gridSize
+                );
+                break;
+            case Assets.LAVA:
+                result = new LavaObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.WATER:
+                result = new WaterObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.EMPTY_SEA:
+                result = new EmptySeaObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.WAYPOINT_BLOCK:
+                result = new WaypointBlockObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.TERRAIN:
+                result = new TerrainObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.POLYGON_TOOL:
+                result = new PolygonObject(
+                    ID, Name,
+                    X1, Y1,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID,
+                    X2, Y2,
+                    X3, Y3
+                );
+                break;
+            case Assets.RAMP_A:
+                result = new RampAObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.RAMP_B:
+                result = new RampBObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.RAMP_C:
+                result = new RampCObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.RAMP_D:
+                result = new RampDObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.LONG_RAMP_A:
+                result = new LongRampAObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.LONG_RAMP_B:
+                result = new LongRampBObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.LONG_RAMP_C:
+                result = new LongRampCObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.LONG_RAMP_D:
+                result = new LongRampDObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            default:
+                result = new AssetObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+        }
+    }
+    else {
+        // TODO: tiles
+    }
+    return result;
 }
