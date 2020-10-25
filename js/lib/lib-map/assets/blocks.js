@@ -111,3 +111,20 @@ class PolygonObject extends BlockObject {
             .attr("points", points);
     }
 }
+
+class RampAObject extends BlockObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+    }
+
+    drawD3(svg, width, height, xScale, yScale) {
+        const points =
+            `${xScale(this.X) + width},${yScale(this.Y)} `
+            + `${xScale(this.X)},${yScale(this.Y) + height} `
+            + `${xScale(this.X) + width},${yScale(this.Y) + height}`;
+        svg.append("polygon")
+            .attr("id", this.ObjID)
+            .style("fill", this.fillColor)
+            .attr("points", points);
+    }
+}

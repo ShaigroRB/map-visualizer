@@ -195,6 +195,14 @@ function getCorrespondingMapObject(mapObj, gridSize) {
                     X3, Y3
                 );
                 break;
+            case Assets.RAMP_A:
+                result = new RampAObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
             default:
                 result = new AssetObject(
                     ID, Name,
