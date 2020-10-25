@@ -227,6 +227,38 @@ function getCorrespondingMapObject(mapObj, gridSize) {
                     Depth, LogicID
                 );
                 break;
+            case Assets.LONG_RAMP_A:
+                result = new LongRampAObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.LONG_RAMP_B:
+                result = new LongRampBObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.LONG_RAMP_C:
+                result = new LongRampCObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.LONG_RAMP_D:
+                result = new LongRampDObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
             default:
                 result = new AssetObject(
                     ID, Name,

@@ -178,3 +178,31 @@ class RampDObject extends RampAObject {
         this.drawD3GivenPoints(svg, points);
     }
 }
+
+class LongRampAObject extends RampAObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.widthCoeff = 2;
+    }
+}
+
+class LongRampBObject extends RampBObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.widthCoeff = 2;
+    }
+}
+
+class LongRampCObject extends RampCObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.widthCoeff = 2;
+    }
+}
+
+class LongRampDObject extends RampDObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.widthCoeff = 2;
+    }
+}
