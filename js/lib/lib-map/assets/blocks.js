@@ -117,65 +117,64 @@ class RampAObject extends BlockObject {
         super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
     }
 
-    drawD3(svg, width, height, xScale, yScale) {
+    drawD3GivenPoints(svg, points) {
+        svg.append("polygon")
+            .attr("id", this.ObjID)
+            .style("fill", this.fillColor)
+            .attr("points", points);
+    }
+
+    drawD3(svg, _width, height, xScale, yScale) {
+        const width = _width * this.widthCoeff;
         const points =
             `${xScale(this.X) + width},${yScale(this.Y)} `
             + `${xScale(this.X)},${yScale(this.Y) + height} `
             + `${xScale(this.X) + width},${yScale(this.Y) + height}`;
-        svg.append("polygon")
-            .attr("id", this.ObjID)
-            .style("fill", this.fillColor)
-            .attr("points", points);
+        this.drawD3GivenPoints(svg, points);
     }
 }
 
-class RampBObject extends BlockObject {
+class RampBObject extends RampAObject {
     constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
         super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
     }
 
     drawD3(svg, width, height, xScale, yScale) {
+        const widthWithCoef = width * this.widthCoeff;
         const points =
             `${xScale(this.X)},${yScale(this.Y)} `
             + `${xScale(this.X)},${yScale(this.Y) + height} `
-            + `${xScale(this.X) + width},${yScale(this.Y) + height}`;
-        svg.append("polygon")
-            .attr("id", this.ObjID)
-            .style("fill", this.fillColor)
-            .attr("points", points);
+            + `${xScale(this.X) + widthWithCoef},${yScale(this.Y) + height}`;
+        this.drawD3GivenPoints(svg, points);
     }
 }
 
-class RampCObject extends BlockObject {
+class RampCObject extends RampAObject {
     constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
         super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
     }
 
     drawD3(svg, width, height, xScale, yScale) {
+        const widthWithCoef = width * this.widthCoeff;
         const points =
             `${xScale(this.X)},${yScale(this.Y)} `
-            + `${xScale(this.X) + width},${yScale(this.Y)} `
-            + `${xScale(this.X) + width},${yScale(this.Y) + height}`;
-        svg.append("polygon")
-            .attr("id", this.ObjID)
-            .style("fill", this.fillColor)
-            .attr("points", points);
+            + `${xScale(this.X) + widthWithCoef},${yScale(this.Y)} `
+            + `${xScale(this.X) + widthWithCoef},${yScale(this.Y) + height}`;
+        this.drawD3GivenPoints(svg, points);
     }
 }
 
-class RampDObject extends BlockObject {
+class RampDObject extends RampAObject {
     constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
         super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
     }
 
     drawD3(svg, width, height, xScale, yScale) {
+        const widthWithCoef = width * this.widthCoeff;
         const points =
             `${xScale(this.X)},${yScale(this.Y)} `
-            + `${xScale(this.X) + width},${yScale(this.Y)} `
+            + `${xScale(this.X) + widthWithCoef},${yScale(this.Y)} `
             + `${xScale(this.X)},${yScale(this.Y) + height}`;
-        svg.append("polygon")
-            .attr("id", this.ObjID)
-            .style("fill", this.fillColor)
-            .attr("points", points);
+        this.drawD3GivenPoints(svg, points);
     }
 }
