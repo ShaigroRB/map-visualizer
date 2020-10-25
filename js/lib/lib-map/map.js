@@ -88,24 +88,14 @@ function getCorrespondingMapObject(mapObj, gridSize) {
     const {
         ID, Name, ObjIsTile,
         X, Y, X1, Y1,
+        X2, Y2, X3, Y3,
         ObjIndexID, Depth, LogicID,
         ObjWallWidth, ObjWallHeight
     } = mapObj;
 
-    let x;
-    let y;
-    if (ObjIndexID == Assets.POLYGON_TOOL) {
-        x = X1;
-        y = Y1;
-    }
-    else {
-        x = X;
-        y = Y;
-    }
-
     let result = new MapObject(
         ID, Name,
-        x, y,
+        X, Y,
         ObjIsTile, ObjIndexID,
         Depth, LogicID
     );
@@ -116,7 +106,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.BLOCK_1X1:
                 result = new BlockObject(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
                 );
@@ -124,7 +114,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.BLOCK_2X2:
                 result = new Block2x2Object(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
                 );
@@ -132,7 +122,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.BLOCK_1X4:
                 result = new Block1x4Object(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
                 );
@@ -140,7 +130,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.BLOCK_4X1:
                 result = new Block4x1Object(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
                 );
@@ -148,7 +138,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.WALL_TOOL:
                 result = new WallObject(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID,
                     ObjWallWidth, ObjWallHeight,
@@ -158,7 +148,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.LAVA:
                 result = new LavaObject(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
                 );
@@ -166,7 +156,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.WATER:
                 result = new WaterObject(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
                 );
@@ -174,7 +164,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.EMPTY_SEA:
                 result = new EmptySeaObject(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
                 );
@@ -182,7 +172,7 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.WAYPOINT_BLOCK:
                 result = new WaypointBlockObject(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
                 );
@@ -190,15 +180,25 @@ function getCorrespondingMapObject(mapObj, gridSize) {
             case Assets.TERRAIN:
                 result = new TerrainObject(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
+                );
+                break;
+            case Assets.POLYGON_TOOL:
+                result = new PolygonObject(
+                    ID, Name,
+                    X1, Y1,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID,
+                    X2, Y2,
+                    X3, Y3
                 );
                 break;
             default:
                 result = new AssetObject(
                     ID, Name,
-                    x, y,
+                    X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
                 );

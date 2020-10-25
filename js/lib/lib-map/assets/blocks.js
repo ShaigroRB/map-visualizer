@@ -90,3 +90,24 @@ class TerrainObject extends BlockObject {
         this.fillColor = "#431803";
     }
 }
+
+class PolygonObject extends BlockObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId, x2, y2, x3, y3) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.X2 = x2;
+        this.Y2 = y2;
+        this.X3 = x3;
+        this.Y3 = y3;
+    }
+
+    drawD3(svg, _, __, xScale, yScale) {
+        const points =
+            `${xScale(this.X)},${yScale(this.Y)} `
+            + `${xScale(this.X2)},${yScale(this.Y2)} `
+            + `${xScale(this.X3)},${yScale(this.Y3)}`;
+        svg.append("polygon")
+            .attr("id", this.ObjID)
+            .style("fill", this.fillColor)
+            .attr("points", points);
+    }
+}
