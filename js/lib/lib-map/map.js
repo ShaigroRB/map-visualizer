@@ -83,6 +83,7 @@ class MapObject {
  * Get a corresponding MapObject from a given object
  * @param {*} mapObj The object to convert into a MapObject
  * @param {number} gridSize Size of the grid
+ * @returns {MapObject} A MapObject corresponding to the given object
  */
 function getCorrespondingMapObject(mapObj, gridSize) {
     const {
@@ -272,4 +273,24 @@ function getCorrespondingMapObject(mapObj, gridSize) {
         // TODO: tiles
     }
     return result;
+}
+
+/**
+ * 
+ * @param {string} mapData The data of the map which is a json
+ * @param {number} BM_DEFAULT_GRID_SIZE
+ * @returns {MapObject} The list of objects on the map
+ */
+function getMapObjectsList(mapData, BM_DEFAULT_GRID_SIZE = 128) {
+    const map = JSON.parse(mapData)
+    let mapObjList = []
+    for (const item in map) {
+        if (item.startsWith('OBJ') && map[item]['ObjIsTile'] === '0') {
+            mapObjList.push(getCorrespondingMapObject(map[item], BM_DEFAULT_GRID_SIZE));
+        }
+    }
+    // descending because first drawn objects are hidden by later drawn objects
+    MapObject.sortByDepth(mapObjList, false);
+
+    return mapObjList
 }

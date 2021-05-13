@@ -9,6 +9,8 @@ function changeContainerFlexDirection() {
     const isRowContainer = detailsMapContainer.className === "row-container";
     detailsMapContainer.className = isRowContainer ? "column-container" : "row-container";
     document.getElementById("btn-details").innerText = isRowContainer ? "Reduced width" : "Full width";
+
+    mapObjList = getMapObjectsList(mapData)
     redrawChart(mapObjList, mapViewer, 630);
 }
 
@@ -21,6 +23,9 @@ function readSingleFile(e) {
     const reader = new FileReader();
     reader.onload = function (e) {
         currFileContents = e.target.result.split('\n');
+        mapData = currFileContents[3];
+        mapObjList = getMapObjectsList(mapData);
+
         displayContents(currFileContents);
         redrawChart(mapObjList, mapViewer, 630);
     };
