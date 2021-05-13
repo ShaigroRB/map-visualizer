@@ -28,7 +28,7 @@ function redrawChart(mapObjList, mapViewer, height, BM_DEFAULT_GRID_SIZE = 128) 
  * @param {number} BM_DEFAULT_GRID_SIZE
  */
 function drawChart(mapViewerId, mapObjList, width, height, BM_DEFAULT_GRID_SIZE = 128) {
-    const minMaxCoords = getMinMaxCoordinates(mapObjList);
+    const minMaxCoords = new MinMaxCoordinates(mapObjList);
     minMaxCoords.correctMaxXY(BM_DEFAULT_GRID_SIZE);
 
     const max_x = minMaxCoords.maxX;

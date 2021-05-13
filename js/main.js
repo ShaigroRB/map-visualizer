@@ -50,20 +50,7 @@ document.getElementById('file-input')
     .addEventListener('change', readSingleFile, false);
 
 /**
- * Get the min and max values for X and Y
- * @param {MapObject[]} list
- * @returns {MinMaxCoordinates} a MinMaxCoordinates object
  */
-function getMinMaxCoordinates(list) {
-    let currentElm = list[0];
 
-    const result = new MinMaxCoordinates(currentElm.X, currentElm.X, currentElm.Y, currentElm.Y);
 
-    list.forEach(elm => {
-        result.compareAndSetMinX(elm.X);
-        result.compareAndSetMaxX(elm.X);
-        result.compareAndSetMinY(elm.Y);
-        result.compareAndSetMaxY(elm.Y);
-    });
-    return result;
 }
