@@ -1,18 +1,15 @@
-const BM_DEFAULT_GRID_SIZE = 128;
-let detailsMapContainer = document.getElementsByClassName("row-container")[0];
-let currFileContents;
+let mapObjList = [];
+let currFileContents = [];
+let mapData = "";
 
-function redrawChart(height) {
-    clearChart();
-    const widthViewer = document.getElementById("map-viewer").clientWidth;
-    drawChart(currFileContents[3], widthViewer, height);
-}
+const detailsMapContainer = document.getElementsByClassName("row-container")[0];
+const mapViewer = document.getElementById("map-viewer");
 
 function changeContainerFlexDirection() {
     const isRowContainer = detailsMapContainer.className === "row-container";
     detailsMapContainer.className = isRowContainer ? "column-container" : "row-container";
     document.getElementById("btn-details").innerText = isRowContainer ? "Reduced width" : "Full width";
-    redrawChart(630);
+    redrawChart(mapObjList, mapViewer, 630);
 }
 
 function readSingleFile(e) {
@@ -25,7 +22,7 @@ function readSingleFile(e) {
     reader.onload = function (e) {
         currFileContents = e.target.result.split('\n');
         displayContents(currFileContents);
-        redrawChart(630);
+        redrawChart(mapObjList, mapViewer, 630);
     };
     reader.readAsText(file);
 }
@@ -46,48 +43,6 @@ function displayContents(lines) {
 
 document.getElementById('file-input')
     .addEventListener('change', readSingleFile, false);
-
-function clearChart() {
-    const mapViewer = document.getElementById("map-viewer");
-    mapViewer.textContent = "";
-}
-
-function drawChart(data, width, height) {
-    let mapObjList = [];
-    const map = JSON.parse(data)
-    for (const item in map) {
-        if (item.startsWith('OBJ') && map[item]['ObjIsTile'] === '0') {
-            mapObjList.push(getCorrespondingMapObject(map[item], BM_DEFAULT_GRID_SIZE));
-        }
-    }
-
-    // descending because first drawn objects are hidden by later drawn objects
-    MapObject.sortByDepth(mapObjList, false);
-
-    const minMaxCoords = getMinMaxCoordinates(mapObjList);
-    minMaxCoords.correctMaxXY(BM_DEFAULT_GRID_SIZE);
-
-    const max_x = minMaxCoords.maxX;
-    const max_y = minMaxCoords.maxY;
-    const min_x = minMaxCoords.minX;
-    const min_y = minMaxCoords.minY;
-
-    const boxWidth = (width * BM_DEFAULT_GRID_SIZE) / (max_x - min_x)
-    const boxHeight = (height * BM_DEFAULT_GRID_SIZE) / (max_y - min_y)
-
-    var xScale = d3.scaleLinear()
-        .domain([min_x, max_x])
-        .range([0, width])
-    var yScale = d3.scaleLinear()
-        .domain([min_y, max_y])
-        .range([0, height])
-
-    var svg = d3.select("#map-viewer").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-
-    mapObjList.forEach(item => item.drawD3(svg, boxWidth, boxHeight, xScale, yScale));
-}
 
 /**
  * Get the min and max values for X and Y
