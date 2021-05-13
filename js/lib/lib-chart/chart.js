@@ -4,7 +4,6 @@
  */
 function clearChart(mapViewer) {
     mapViewer.textContent = "";
-    mapObjList = [];
 }
 
 /**

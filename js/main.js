@@ -10,7 +10,6 @@ function changeContainerFlexDirection() {
     detailsMapContainer.className = isRowContainer ? "column-container" : "row-container";
     document.getElementById("btn-details").innerText = isRowContainer ? "Reduced width" : "Full width";
 
-    mapObjList = getMapObjectsList(mapData)
     redrawChart(mapObjList, mapViewer, 630);
 }
 
