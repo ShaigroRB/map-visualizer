@@ -4,16 +4,21 @@
 class MinMaxCoordinates {
     /**
      * Constructor of MinMaxCoordinates
-     * @param {number} minX 
-     * @param {number} maxX 
-     * @param {number} minY 
-     * @param {number} maxY 
+     * @param {MapObject[]} listOfCoords 
      */
-    constructor(minX, maxX, minY, maxY) {
-        this.minX = minX;
-        this.maxX = maxX;
-        this.minY = minY;
-        this.maxY = maxY;
+    constructor(listOfCoords) {
+        const firstElement = listOfCoords[0];
+        this.minX = firstElement.X;
+        this.maxX = firstElement.X;
+        this.minY = firstElement.Y;
+        this.maxY = firstElement.Y;
+
+        listOfCoords.forEach(elm => {
+            this.compareAndSetMinX(elm.X);
+            this.compareAndSetMaxX(elm.X);
+            this.compareAndSetMinY(elm.Y);
+            this.compareAndSetMaxY(elm.Y);
+        });
     }
 
     /**
