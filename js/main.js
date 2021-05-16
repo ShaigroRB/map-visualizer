@@ -85,9 +85,12 @@ checkboxesInfo.forEach((info) => {
     }
     const checkbox = newCheckboxForVisibility(info, handleVisibility);
     const label = newLabelForCheckbox(checkbox);
+    const div = document.createElement('div');
 
-    divCheckboxesVisibility.appendChild(checkbox);
-    divCheckboxesVisibility.appendChild(label);
+    div.appendChild(checkbox);
+    div.appendChild(label);
+
+    divCheckboxesVisibility.appendChild(div);
 });
 
 //#endregion

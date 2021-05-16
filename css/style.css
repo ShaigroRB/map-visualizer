@@ -35,3 +35,11 @@
 #map-viewer {
     width: 100%;
 }
+
+div#div-checkboxes-visibility {
+    display: flex;
+    align-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 300px;
+}
