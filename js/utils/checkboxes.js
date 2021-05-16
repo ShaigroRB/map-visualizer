@@ -13,6 +13,24 @@ const checkboxesInfo = [
         'name': 'platforms',
         'assets': [Assets.PLATFORM_TOOL],
         'defaultVisibility': true
+    },
+    {
+        'name': 'ramps',
+        'assets': [
+            Assets.RAMP_A, Assets.RAMP_B, Assets.RAMP_C, Assets.RAMP_D,
+            Assets.LONG_RAMP_A, Assets.LONG_RAMP_B, Assets.LONG_RAMP_C, Assets.LONG_RAMP_D
+        ],
+        'defaultVisibility': true
+    },
+    {
+        'name': 'terrains',
+        'assets': [Assets.TERRAIN],
+        'defaultVisibility': true
+    },
+    {
+        'name': 'polygons',
+        'assets': [Assets.POLYGON_TOOL],
+        'defaultVisibility': true
     }
 ]
 
@@ -22,7 +40,7 @@ const checkboxesInfo = [
  * @param {(assets: number[], visibility: boolean) => {}} handleVisibility
  * @returns A new checkbox
  */
- function newCheckboxForVisibility(info, handleVisibility) {
+function newCheckboxForVisibility(info, handleVisibility) {
     const checkbox = document.createElement('input');
     checkbox.id = `checkbox-visibility-${info.name}`;
     checkbox.type = 'checkbox';
