@@ -57,7 +57,21 @@ function displayContents(lines) {
 }
 
 /**
+ * Set visibility for map objects if there are of one of the assets' type
+ * @param {MapObject[]} mapObjects List of HTML objects
+ * @param {Assets[]} assets List of assets
+ * @param {string} visibility
  */
+function setVisibilityMapObjectsGivenAssets(mapObjects, assets, visibility) {
+    mapObjects.forEach(item => {
+        const isGivenAsset = assets.some(
+            (asset) => item.ObjIndexID == asset
+        );
+        if (isGivenAsset) {
+            document.getElementById(item.ObjID).setAttribute('visibility', visibility);
+        }
+    });
+}
 
 //#endregion
 
@@ -65,6 +79,15 @@ function displayContents(lines) {
 
 document.getElementById('file-input').addEventListener('change', readSingleFile, false);
 
+checkboxesInfo.forEach((info) => {
+    const handleVisibility = (assets, visibility) => {
+        setVisibilityMapObjectsGivenAssets(mapObjList, assets, visibility);
+    }
+    const checkbox = newCheckboxForVisibility(info, handleVisibility);
+    const label = newLabelForCheckbox(checkbox);
 
+    divCheckboxesVisibility.appendChild(checkbox);
+    divCheckboxesVisibility.appendChild(label);
+});
 
 //#endregion
