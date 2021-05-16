@@ -35,6 +35,15 @@ class WallObject extends BlockObject {
     }
 }
 
+class PlatformObject extends BlockObject {
+    constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId, objPlatWidth, gridSize) {
+        super(id, name, x, y, objIsTile, objIndexId, depth, logicId);
+        this.fillColor = "#999999";
+        this.widthCoeff = parseInt(objPlatWidth) / gridSize;
+        this.heightCoeff = 0.25;
+    }
+}
+
 class LavaObject extends BlockObject {
     constructor(id, name, x, y, objIsTile, objIndexId, depth, logicId) {
         super(id, name, x, y, objIsTile, objIndexId, depth, logicId);

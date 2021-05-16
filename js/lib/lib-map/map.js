@@ -91,7 +91,8 @@ function getCorrespondingMapObject(mapObj, gridSize) {
         X, Y, X1, Y1,
         X2, Y2, X3, Y3,
         ObjIndexID, Depth, LogicID,
-        ObjWallWidth, ObjWallHeight
+        ObjWallWidth, ObjWallHeight,
+        ObjPlatWidth
     } = mapObj;
 
     let result = new MapObject(
@@ -143,6 +144,16 @@ function getCorrespondingMapObject(mapObj, gridSize) {
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID,
                     ObjWallWidth, ObjWallHeight,
+                    gridSize
+                );
+                break;
+            case Assets.PLATFORM_TOOL:
+                result = new PlatformObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID,
+                    ObjPlatWidth,
                     gridSize
                 );
                 break;
