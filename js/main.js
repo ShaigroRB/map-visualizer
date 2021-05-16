@@ -6,7 +6,7 @@ let mapData = '';
 
 //#region DOM elements
 
-const detailsMapContainer = document.getElementsByClassName('row-container')[0];
+const detailsMapContainer = document.getElementById('details-map-container');
 const mapViewer = document.getElementById('map-viewer');
 const divCheckboxesVisibility = document.getElementById('div-checkboxes-visibility');
 
