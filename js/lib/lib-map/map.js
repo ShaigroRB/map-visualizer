@@ -92,7 +92,8 @@ function getCorrespondingMapObject(mapObj, gridSize) {
         X2, Y2, X3, Y3,
         ObjIndexID, Depth, LogicID,
         ObjWallWidth, ObjWallHeight,
-        ObjPlatWidth
+        ObjPlatWidth,
+        LadderHeight
     } = mapObj;
 
     let result = new MapObject(
@@ -285,6 +286,24 @@ function getCorrespondingMapObject(mapObj, gridSize) {
                     X, Y,
                     ObjIsTile, ObjIndexID,
                     Depth, LogicID
+                );
+                break;
+            case Assets.LADDER_TOOL_METAL:
+                result = new LadderToolMetalObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID,
+                    LadderHeight
+                );
+                break;
+                case Assets.LADDER_TOOL_WOOD:
+                result = new LadderToolWoodObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID,
+                    LadderHeight
                 );
                 break;
             default:
