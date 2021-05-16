@@ -31,6 +31,16 @@ const checkboxesInfo = [
         'name': 'polygons',
         'assets': [Assets.POLYGON_TOOL],
         'defaultVisibility': true
+    },
+    {
+        'name': 'ladders',
+        'assets': [Assets.LADDER_METAL, Assets.LADDER_WOOD],
+        'defaultVisibility': true
+    },
+    {
+        'name': 'ladders tool',
+        'assets': [Assets.LADDER_TOOL_METAL, Assets.LADDER_TOOL_WOOD],
+        'defaultVisibility': true
     }
 ]
 
