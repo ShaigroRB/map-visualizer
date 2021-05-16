@@ -1,14 +1,25 @@
+//#region ------ Variables ---------
+
 let mapObjList = [];
 let currFileContents = [];
-let mapData = "";
+let mapData = '';
 
-const detailsMapContainer = document.getElementsByClassName("row-container")[0];
-const mapViewer = document.getElementById("map-viewer");
+//#region DOM elements
+
+const detailsMapContainer = document.getElementsByClassName('row-container')[0];
+const mapViewer = document.getElementById('map-viewer');
+const divCheckboxesVisibility = document.getElementById('div-checkboxes-visibility');
+
+//#endregion
+
+//#endregion
+
+//#region ------- Functions ---------
 
 function changeContainerFlexDirection() {
-    const isRowContainer = detailsMapContainer.className === "row-container";
-    detailsMapContainer.className = isRowContainer ? "column-container" : "row-container";
-    document.getElementById("btn-details").innerText = isRowContainer ? "Reduced width" : "Full width";
+    const isRowContainer = detailsMapContainer.className === 'row-container';
+    detailsMapContainer.className = isRowContainer ? 'column-container' : 'row-container';
+    document.getElementById('btn-details').innerText = isRowContainer ? 'Reduced width' : 'Full width';
 
     redrawChart(mapObjList, mapViewer, 630);
 }
@@ -33,7 +44,7 @@ function readSingleFile(e) {
 
 function displayContents(lines) {
     let element = document.getElementById('pre-file-content');
-    let text = "";
+    let text = '';
     for (const line in lines) {
         if (line >= 3) {
             // pretty print the json objects
@@ -45,11 +56,15 @@ function displayContents(lines) {
     element.textContent = text;
 }
 
-document.getElementById('file-input')
-    .addEventListener('change', readSingleFile, false);
-
 /**
  */
 
+//#endregion
 
-}
+//#region  -------- Add event listeners & DOM objects when loading the page --------
+
+document.getElementById('file-input').addEventListener('change', readSingleFile, false);
+
+
+
+//#endregion
