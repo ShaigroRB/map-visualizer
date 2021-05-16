@@ -8,6 +8,11 @@ const checkboxesInfo = [
         'name': 'blocks',
         'assets': [Assets.BLOCK_1X1, Assets.BLOCK_2X2, Assets.BLOCK_1X4, Assets.BLOCK_4X1],
         'defaultVisibility': true
+    },
+    {
+        'name': 'platforms',
+        'assets': [Assets.PLATFORM_TOOL],
+        'defaultVisibility': true
     }
 ]
 
