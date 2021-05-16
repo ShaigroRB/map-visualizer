@@ -271,6 +271,22 @@ function getCorrespondingMapObject(mapObj, gridSize) {
                     Depth, LogicID
                 );
                 break;
+            case Assets.LADDER_METAL:
+                result = new LadderMetalObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
+            case Assets.LADDER_WOOD:
+                result = new LadderWoodObject(
+                    ID, Name,
+                    X, Y,
+                    ObjIsTile, ObjIndexID,
+                    Depth, LogicID
+                );
+                break;
             default:
                 result = new AssetObject(
                     ID, Name,
